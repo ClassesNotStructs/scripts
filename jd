@@ -1,0 +1,3 @@
+#!/bin/sh
+
+cd $(/home/pugpugpugs/SLow_Req/mycd $1) 

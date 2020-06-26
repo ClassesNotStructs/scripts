@@ -1,0 +1,16 @@
+#!/bin/sh
+
+timefile=/home/pugpugpugs/SLow_Req/timerecord.txt
+
+if ! [[ $1 =~ [0-9]+$ ]]
+then
+    echo input should be numerical
+    exit
+fi
+
+if [ -e $timefile ]
+then
+    echo $(($(cat $timefile) + $1)) > $timefile
+else
+    echo $1 > $timefile
+fi

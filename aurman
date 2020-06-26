@@ -1,0 +1,33 @@
+#!/bin/sh
+
+viewer="w3m";
+
+aur_url="https://aur.archlinux.org"
+
+search() {
+    search_url="$aur_url/packages?K=$1"
+    $viewer $search_url
+    exit 0
+}
+
+download() {
+    download_repo="$aur_url/$1"
+    download_directory="/home/pugpugpugs/downloads/$1"
+    mkdir $download_directory && git clone $download_repo $download_directory
+}
+
+perform_operation() {
+    case $1 in
+        "search")
+            search $2
+            ;;
+        "download")
+            download $2
+            ;;
+        *)
+            echo "operations are: 'search'"
+            ;;
+    esac
+}
+
+$(test -z $1 || test -z $2) && "echo usage aurman <operation> <keyword>" || perform_operation $1 $2

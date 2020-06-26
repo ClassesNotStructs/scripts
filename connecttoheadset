@@ -1,0 +1,10 @@
+#!/bin/bash
+
+coproc bluetoothctl
+echo -e "power on\n" >&${COPROC[1]}
+sleep 2
+echo -e "connect F4:\t\n" >&${COPROC[1]}
+sleep 5
+echo -e "exit\n" >&${COPROC[1]}
+output=$(cat <&${COPROC[0]})
+echo $(echo $output | sed "s/C/\r/g")

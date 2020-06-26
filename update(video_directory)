@@ -1,0 +1,26 @@
+#!/bin/bash
+
+function quit {
+    echo $1
+    exit 1
+}
+
+target_dir=$1
+
+! [ -d $target_dir ] && quit "usage: update <directory>"
+
+! [ -f $target_dir/info.sh ] && quit "$target_dir does not contain info.sh" || source $target_dir/info.sh
+
+[ -z $channel_url ] && quit "no channel url specified"
+[ -z $archive_file ] && quit "no archive file specified"
+[ -z $date_lim ] && quit "no date limit specified"
+
+result=1
+function download {
+    youtube-dl --dateafter $date_lim --download-archive $target_dir/$archive_file $channel_url -o "$target_dir/%(upload_date)s: %(title)s.%(ext)s" && result=0 || result=1
+}
+
+while ! [ $result = 0 ] 
+do
+    download 
+done

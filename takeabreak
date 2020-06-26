@@ -1,0 +1,59 @@
+#!/bin/bash
+#time generation function at https://www.desmos.com/calculator/zvta6iaclx
+
+function timeSecondsToBreakSeconds
+{
+    echo $(((156 * $1) / ($1 / 60 + 252)))
+}
+
+function timeMinutesToBreakSeconds
+{
+    echo $(timeSecondsToBreakSeconds $(($1 * 60)))
+}
+
+function timeToBreakSeconds
+{
+    if [ $2 ]
+    then
+        echo $(timeMinutesToBreakSeconds $(($1 / $2)))
+    else
+        echo $(timeMinutesToBreakSeconds $1)
+    fi
+}
+
+divisor=$1
+
+TIMEFILE="/home/pugpugpugs/SLow_Req/timerecord.txt"
+
+let TIME=$(cat $TIMEFILE)
+
+if [ $TIME ]
+then
+    echo time is $TIME minutes
+else
+    echo time is zero, exiting...
+    exit 1
+fi
+
+BREAKTIME=$(timeToBreakSeconds $TIME $divisor)
+
+echo break time is $(($BREAKTIME / 60)) minutes, start? \(y/n\)
+
+read approval
+
+if [ $approval == "y" ]
+then
+    termdown $BREAKTIME
+else
+    echo okay, quitting...
+    exit 0
+fi
+
+if [ $divisor ]
+then
+    echo $(expr $TIME - $(expr $TIME / $divisor)) > $TIMEFILE
+else
+    echo 0 > $TIMEFILE
+fi
+
+echo you now have $(cat $TIMEFILE) minute\(s\) remaining

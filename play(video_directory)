@@ -1,0 +1,10 @@
+#!/bin/sh
+date=$2
+mplayer_flags=-fixed-vo gl
+
+! [ -d $1 ] && echo "$1 is not a directory"
+[ -z $2 ] && date=$(date +%Y%m%d)
+
+ls $1 | grep $date > $1/playlist.tmp
+
+cd $1 && mplayer $mplayer_flags -playlist "playlist.tmp"

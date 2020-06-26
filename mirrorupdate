@@ -1,0 +1,26 @@
+#!/bin/bash
+
+MIRRORFILE=/etc/pacman.d/mirrorlist
+
+BUFFERFILE=$MIRRORFILE.next
+
+BACKUPFILE=$MIRRORFILE.backup
+
+echo "retrieving mirrors"
+
+sudo reflector --country United\ States --latest 50 --score 25 --fastest 10 --sort rate --save $BUFFERFILE
+
+cat $BUFFERFILE
+
+echo "are these servers adequate? (y/n)"
+
+read answer
+
+if [ $answer == y ]
+then
+    sudo mv $MIRRORFILE $BACKUPFILE
+    sudo mv $BUFFERFILE $MIRRORFILE
+    echo "mirrorlist has been updated"
+else
+    echo "quitting, the list has been saved to $BUFFERFILE"
+fi

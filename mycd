@@ -1,0 +1,92 @@
+#!/bin/bash
+
+abbreviation=$1
+
+homedir="/home/pugpugpugs"
+vdir="$homedir/video"
+docdir="$homedir/Documents" 
+codedir="$docdir/Coding"
+cdir="$codedir/C"
+cppdir="$codedir/C++"
+hsdir="$codedir/Haskell"
+rdir="$codedir/Rust"
+schdir="$docdir/School"
+pldir="$homedir/SPlaylist"
+
+function manageCD {
+    echo $1
+    exit 0
+}
+
+case $abbreviation in
+    co)
+        manageCD "$codedir"
+        ;;
+
+    c)
+        manageCD "$cdir"
+        ;;
+
+    cpp)
+        manageCD "$cppdir"
+        ;;
+
+    hs)
+        manageCD "$hsdir"
+        ;;
+
+    r)
+        manageCD "$rdir"
+        ;;
+
+    v)
+        manageCD "$vdir"
+        ;;
+
+    gl) 
+        manageCD "$cdir/opengl"
+        ;;
+
+    x)
+        manageCD "$cdir/x11"
+        ;;
+
+    tpc)
+        manageCD "$cppdir/TotumProofOfConcept"
+        ;;
+
+    ci)
+        manageCD "$cppdir/craftinginterpreters"
+        ;;
+
+    lgi)
+        manageCD "$cppdir/largeint_assignment" 
+        ;;
+
+    qt)
+        manageCD "$cppdir/QuickTest"
+        ;;
+
+    sch)
+        manageCD "$schdir"
+        ;;
+
+    e)
+        manageCD "$schdir/English"
+        ;;
+    p) 
+        manageCD "$pldir"
+        ;;
+    pu) 
+        manageCD "$pldir/Unsorted"
+        ;;
+    pw) 
+        manageCD "$pldir/Whitelist"
+        ;;
+    pb) 
+        manageCD "$pldir/Blacklist"
+        ;;
+    *)
+        echo "/home/pugpugpugs"
+        exit 1
+esac

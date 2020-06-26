@@ -1,0 +1,5 @@
+#!/bin/sh
+
+ls > playlist.txt && exit 0
+
+exit -1

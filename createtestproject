@@ -1,0 +1,8 @@
+#!/bin/bash
+
+if  [ ! -e "mycd" ]
+then
+    echo "cannot reach any directories due to lack of mycd file"
+fi
+
+. mycd QTEST S; touch $1; vim $1
